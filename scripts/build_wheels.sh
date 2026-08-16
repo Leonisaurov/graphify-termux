@@ -170,6 +170,11 @@ import os
 import sys
 mod, pkg, ver, symbols = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4].split()
 sopath = "libtree-sitter-%s.so" % mod
+# El "lenguaje principal" es el simbolo tree_sitter_* sin "external" (los
+# external_scanner_* son helpers del scanner). NUNCA usar dir(ctypes.CDLL)
+# para descubrir simbolos: CPython no los lista por dir(); solo funciona
+# getattr(_lib, "nombre") que hace dlsym.
+main = next((s for s in symbols if "external" not in s), None)
 lines = [
     "import ctypes, os",
     "from tree_sitter import Language",
@@ -179,19 +184,28 @@ lines = [
     "def _lib():",
     "    return ctypes.CDLL(_LIB)",
     "",
-    "def language():",
-    "    lib = _lib()",
-    "    for name in dir(lib):",
-    "        if name.startswith('tree_sitter_'):",
-    "            return Language(getattr(lib, name))",
-    "    raise RuntimeError('no tree_sitter_* symbol in %s' % _LIB)",
 ]
+if main:
+    lines += [
+        "def language():",
+        "    return Language(_lib().%s)" % main,
+        "",
+    ]
+else:
+    lines += [
+        "def language():",
+        "    raise RuntimeError('no tree_sitter_* language function in %s' % _LIB)",
+        "",
+    ]
 for s in symbols:
+    if "external" in s:
+        continue
     suffix = s[len("tree_sitter_"):]
-    lines.append("")
-    lines.append("def language_%s():" % suffix)
-    lines.append("    return Language(_lib().%s)" % s)
-lines.append("")
+    lines += [
+        "def language_%s():" % suffix,
+        "    return Language(_lib().%s)" % s,
+        "",
+    ]
 open(os.path.join(mod, "__init__.py"), "w").write("\n".join(lines))
 PY
 ) >"$LOG" 2>&1 || { echo "FAIL shim gen: $spec"; tail -10 "$LOG" >> "$FAILED/build-failed.txt"; continue; }
