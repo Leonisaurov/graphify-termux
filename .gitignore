@@ -1,0 +1,7 @@
+# builds y artefactos
+wheels/
+failed/
+*.whl
+*.tar.gz
+__pycache__/
+*.pyc
