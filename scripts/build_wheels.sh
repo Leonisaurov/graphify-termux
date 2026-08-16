@@ -44,20 +44,19 @@ pkg install -y clang make cmake ninja python-numpy binutils curl
 echo "== [3/6] pip base =="
 python -m pip install --upgrade pip setuptools wheel
 
-echo "== [4/6] headers de grammars (del sdist de tree-sitter-python 0.25.0) =="
-# Los sdists de grammars de la era 0.24-0.25 NO incluyen tree_sitter/parser.h
-# (por eso falla su build desde source). Los headers se extraen del sdist de
-# tree-sitter-python 0.25.0, que SI los trae (misma era, ABI 14).
+echo "== [4/6] headers de grammars (de master del repo tree-sitter) =="
+# Los sdists de grammars de la era 0.24-0.26 NO incluyen tree_sitter/parser.h
+# (por eso falla su build desde source). Los headers se bajan de master del
+# repo tree-sitter (lib/src/), que define TSFieldMapSlice y es backward
+# compatible con parser.c generados desde 0.24.
 TS_HEADERS="$HOME/ts-headers"
 mkdir -p "$TS_HEADERS/tree_sitter"
-if [ ! -f "$TS_HEADERS/tree_sitter/parser.h" ]; then
-  pip download --no-deps --no-binary :all: "tree-sitter-python==0.25.0" -d "$SDIST_DIR" --progress-bar off >/dev/null 2>&1
-  mkdir -p "$HOME/ts-hdr-src"
-  tar xzf "$SDIST_DIR"/tree_sitter_python-0.25.0.tar.gz -C "$HOME/ts-hdr-src" --strip-components=1
-  cp "$HOME/ts-hdr-src"/src/tree_sitter/parser.h "$HOME/ts-hdr-src"/src/tree_sitter/alloc.h \
-     "$HOME/ts-hdr-src"/src/tree_sitter/array.h "$TS_HEADERS/tree_sitter/" \
-    || { echo "ERROR: headers no encontrados en el sdist de tree-sitter-python"; exit 1; }
-fi
+for h in parser.h alloc.h array.h; do
+  if [ ! -f "$TS_HEADERS/tree_sitter/$h" ]; then
+    curl -fsSL "https://raw.githubusercontent.com/tree-sitter/tree-sitter/master/lib/src/$h" \
+      -o "$TS_HEADERS/tree_sitter/$h" || { echo "ERROR: no pude bajar headers $h"; exit 1; }
+  fi
+done
 
 echo "== [5/6] build (core/rapidfuzz: pip wheel | grammars: .so + shim) =="
 rm -rf "$BUILD_DIR"/* "$SDIST_DIR"/*
@@ -87,17 +86,25 @@ while IFS= read -r spec; do
 
   # --- grammars: sdist -> .so -> wheel shim ---
   echo "--- build: $spec (shim .so) ---"
-  pip download --no-deps --no-binary :all: "$spec" -d "$SDIST_DIR" --progress-bar off >/dev/null 2>&1
-  sdist="$(ls "$SDIST_DIR"/"$pkg"-"$ver".tar.gz 2>/dev/null || ls "$SDIST_DIR"/"$mod"-"$ver".tar.gz 2>/dev/null || true)"
-  if [ -z "$sdist" ]; then
-    echo "FAIL download: $spec"
-    echo "=== $spec ===" >> "$FAILED/build-failed.txt"
-    echo "no se pudo descargar el sdist" >> "$FAILED/build-failed.txt"
-    continue
-  fi
   rm -rf "$BUILD_DIR/$mod"
   mkdir -p "$BUILD_DIR/$mod"
-  tar xzf "$sdist" -C "$BUILD_DIR/$mod" --strip-components=1
+  if [ "$pkg" = "tree-sitter-typescript" ]; then
+    # el sdist de PyPI de typescript esta incompleto (no trae common/scanner.h
+    # que su scanner.c incluye); el tarball del repo de GitHub si lo trae.
+    curl -fsSL "https://github.com/tree-sitter/tree-sitter-typescript/archive/refs/tags/v$ver.tar.gz" \
+      -o "$SDIST_DIR/$mod-src.tar.gz" || { echo "FAIL download: $spec"; continue; }
+    tar xzf "$SDIST_DIR/$mod-src.tar.gz" -C "$BUILD_DIR/$mod" --strip-components=1
+  else
+    pip download --no-deps --no-binary :all: "$spec" -d "$SDIST_DIR" --progress-bar off >/dev/null 2>&1
+    sdist="$(ls "$SDIST_DIR"/"$pkg"-"$ver".tar.gz 2>/dev/null || ls "$SDIST_DIR"/"$mod"-"$ver".tar.gz 2>/dev/null || true)"
+    if [ -z "$sdist" ]; then
+      echo "FAIL download: $spec"
+      echo "=== $spec ===" >> "$FAILED/build-failed.txt"
+      echo "no se pudo descargar el sdist" >> "$FAILED/build-failed.txt"
+      continue
+    fi
+    tar xzf "$sdist" -C "$BUILD_DIR/$mod" --strip-components=1
+  fi
 
   PARSERS="$(find "$BUILD_DIR/$mod" -name parser.c | sort)"
   SCANNERS="$(find "$BUILD_DIR/$mod" -name scanner.c | sort || true)"
@@ -108,13 +115,8 @@ while IFS= read -r spec; do
     continue
   fi
 
-  # headers: los del propio sdist si existen; si no, los de v0.25.2
-  local_hdr="$(find "$BUILD_DIR/$mod" -path "*tree_sitter/parser.h" | head -1)"
-  if [ -n "$local_hdr" ]; then
-    HDR_ARGS="-I$(dirname "$local_hdr")"
-  else
-    HDR_ARGS="-I$TS_HEADERS"
-  fi
+  # headers: siempre los de master (backward compatible, definen TSFieldMapSlice)
+  HDR_ARGS="-I$TS_HEADERS"
 
   if clang -shared -fPIC -O3 -std=c11 $HDR_ARGS $PARSERS $SCANNERS \
       -o "$BUILD_DIR/$mod/libtree-sitter-$mod.so" >"$LOG" 2>&1; then
@@ -139,6 +141,7 @@ while IFS= read -r spec; do
   mv "$BUILD_DIR/$mod/libtree-sitter-$mod.so" "$BUILD_DIR/$mod/$mod/"
 
   (cd "$BUILD_DIR/$mod" && python - "$mod" "$pkg" "$ver" "$SYMBOLS" <<'PY'
+import os
 import sys
 mod, pkg, ver, symbols = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4].split()
 sopath = "libtree-sitter-%s.so" % mod

@@ -51,7 +51,11 @@ fi
 echo "== [3/4] instalar wheels + graphifyy =="
 "$VENV/bin/pip" install --upgrade pip >/dev/null
 "$VENV/bin/pip" install --no-deps "$WHEEL_DIR"/*.whl
-"$VENV/bin/pip" install "graphifyy==$GRAPHIFY_VERSION"
+# graphifyy se instala con --no-deps: sus deps ya estan satisfechas por el
+# sistema (numpy/networkx) y los wheels del release (tree-sitter 0.26.0 —
+# deliberadamente fuera del rango <0.26 de graphify para soportar todas las
+# grammars —, grammars shims, rapidfuzz).
+"$VENV/bin/pip" install --no-deps "graphifyy==$GRAPHIFY_VERSION"
 
 echo "== [4/4] smoke test =="
 "$VENV/bin/graphify" --version

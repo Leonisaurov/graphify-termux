@@ -4,8 +4,12 @@
 # acepta tags android_*, nunca wheels manylinux).
 # Lineas con # se ignoran. Formato: paquete==version
 #
-# Core tree-sitter (binding python con lib C embebida, ABI 14)
-tree-sitter==0.25.2
+# Core tree-sitter (binding python con lib C embebida, ABI 15).
+# 0.26.0 esta FUERA del rango de graphifyy (<0.26) a proposito: las grammars
+# modernas (generador 0.25+/0.26) emiten TSFieldMapSlice y son ABI 14/15;
+# el core 0.26.0 las acepta todas (backwards compat). graphify se instala con
+# --no-deps y no usa ninguna API deprecada del binding 0.26.
+tree-sitter==0.26.0
 #
 # Grammars (deps base de graphifyy 0.9.44)
 tree-sitter-python==0.25.0

@@ -1,0 +1,124 @@
+Traceback (most recent call last):
+  File "<stdin>", line 26, in <module>
+NameError: name 'os' is not defined. Did you mean: 's'? Or did you forget to import 'os'?
+Traceback (most recent call last):
+  File "<stdin>", line 26, in <module>
+NameError: name 'os' is not defined. Did you mean: 's'? Or did you forget to import 'os'?
+=== tree-sitter-typescript==0.23.2 ===
+ 2929 | static const TSFieldMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
+      |              ^
+1 error generated.
+/data/data/com.termux/files/home/build/tree_sitter_typescript/typescript/src/parser.c:2804:14: error: unknown type name 'TSFieldMapSlice'
+ 2804 | static const TSFieldMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
+      |              ^
+1 error generated.
+/data/data/com.termux/files/home/build/tree_sitter_typescript/tsx/src/scanner.c:1:10: fatal error: '../../common/scanner.h' file not found
+    1 | #include "../../common/scanner.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+/data/data/com.termux/files/home/build/tree_sitter_typescript/typescript/src/scanner.c:1:10: fatal error: '../../common/scanner.h' file not found
+    1 | #include "../../common/scanner.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+Traceback (most recent call last):
+  File "<stdin>", line 26, in <module>
+NameError: name 'os' is not defined. Did you mean: 's'? Or did you forget to import 'os'?
+Traceback (most recent call last):
+  File "<stdin>", line 26, in <module>
+NameError: name 'os' is not defined. Did you mean: 's'? Or did you forget to import 'os'?
+=== tree-sitter-java==0.23.5 ===
+/data/data/com.termux/files/home/build/tree_sitter_java/src/parser.c:2371:14: error: unknown type name 'TSFieldMapSlice'
+ 2371 | static const TSFieldMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
+      |              ^
+1 error generated.
+=== tree-sitter-groovy==0.1.2 ===
+/data/data/com.termux/files/home/build/tree_sitter_groovy/src/parser.c:2566:14: error: unknown type name 'TSFieldMapSlice'
+ 2566 | static const TSFieldMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
+      |              ^
+1 error generated.
+Traceback (most recent call last):
+  File "<stdin>", line 26, in <module>
+NameError: name 'os' is not defined. Did you mean: 's'? Or did you forget to import 'os'?
+=== tree-sitter-cpp==0.23.4 ===
+/data/data/com.termux/files/home/build/tree_sitter_cpp/src/parser.c:3952:14: error: unknown type name 'TSFieldMapSlice'
+ 3952 | static const TSFieldMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
+      |              ^
+1 error generated.
+=== tree-sitter-ruby==0.23.1 ===
+/data/data/com.termux/files/home/build/tree_sitter_ruby/src/parser.c:2579:14: error: unknown type name 'TSFieldMapSlice'
+ 2579 | static const TSFieldMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
+      |              ^
+1 error generated.
+Traceback (most recent call last):
+  File "<stdin>", line 26, in <module>
+NameError: name 'os' is not defined. Did you mean: 's'? Or did you forget to import 'os'?
+=== tree-sitter-kotlin==1.1.0 ===
+/data/data/com.termux/files/home/build/tree_sitter_kotlin/src/parser.c:2089:14: error: unknown type name 'TSFieldMapSlice'
+ 2089 | static const TSFieldMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
+      |              ^
+1 error generated.
+Traceback (most recent call last):
+  File "<stdin>", line 26, in <module>
+NameError: name 'os' is not defined. Did you mean: 's'? Or did you forget to import 'os'?
+=== tree-sitter-php==0.23.11 ===
+ 3120 | static const TSFieldMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
+      |              ^
+1 error generated.
+/data/data/com.termux/files/home/build/tree_sitter_php/php_only/src/parser.c:3085:14: error: unknown type name 'TSFieldMapSlice'
+ 3085 | static const TSFieldMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
+      |              ^
+1 error generated.
+/data/data/com.termux/files/home/build/tree_sitter_php/php/src/scanner.c:1:10: fatal error: '../../common/scanner.h' file not found
+    1 | #include "../../common/scanner.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+/data/data/com.termux/files/home/build/tree_sitter_php/php_only/src/scanner.c:1:10: fatal error: '../../common/scanner.h' file not found
+    1 | #include "../../common/scanner.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+Traceback (most recent call last):
+  File "<stdin>", line 26, in <module>
+NameError: name 'os' is not defined. Did you mean: 's'? Or did you forget to import 'os'?
+Traceback (most recent call last):
+  File "<stdin>", line 26, in <module>
+NameError: name 'os' is not defined. Did you mean: 's'? Or did you forget to import 'os'?
+=== tree-sitter-zig==1.1.2 ===
+/data/data/com.termux/files/home/build/tree_sitter_zig/src/parser.c:1990:14: error: unknown type name 'TSFieldMapSlice'
+ 1990 | static const TSFieldMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
+      |              ^
+1 error generated.
+Traceback (most recent call last):
+  File "<stdin>", line 26, in <module>
+NameError: name 'os' is not defined. Did you mean: 's'? Or did you forget to import 'os'?
+=== tree-sitter-elixir==0.3.5 ===
+/data/data/com.termux/files/home/build/tree_sitter_elixir/src/parser.c:1707:14: error: unknown type name 'TSFieldMapSlice'
+ 1707 | static const TSFieldMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
+      |              ^
+1 error generated.
+Traceback (most recent call last):
+  File "<stdin>", line 26, in <module>
+NameError: name 'os' is not defined. Did you mean: 's'? Or did you forget to import 'os'?
+=== tree-sitter-julia==0.23.1 ===
+/data/data/com.termux/files/home/build/tree_sitter_julia/src/parser.c:1772:14: error: unknown type name 'TSFieldMapSlice'
+ 1772 | static const TSFieldMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
+      |              ^
+1 error generated.
+=== tree-sitter-verilog==1.0.3 ===
+/data/data/com.termux/files/home/build/tree_sitter_verilog/src/parser.c:1275459:6: error: field designator 'version' does not refer to any field in type 'const TSLanguage' (aka 'const struct TSLanguage')
+ 1275459 |     .version = LANGUAGE_VERSION,
+         |     ~^~~~~~~~~~~~~~~~~~~~~~~~~~
+/data/data/com.termux/files/home/build/tree_sitter_verilog/src/parser.c:1275478:18: warning: incompatible pointer types initializing 'const TSLexerMode *' with an expression of type 'const TSLexMode[20534]' [-Wincompatible-pointer-types]
+ 1275478 |     .lex_modes = ts_lex_modes,
+         |                  ^~~~~~~~~~~~
+1 warning and 1 error generated.
+Traceback (most recent call last):
+  File "<stdin>", line 26, in <module>
+NameError: name 'os' is not defined. Did you mean: 's'? Or did you forget to import 'os'?
+Traceback (most recent call last):
+  File "<stdin>", line 26, in <module>
+NameError: name 'os' is not defined. Did you mean: 's'? Or did you forget to import 'os'?
+=== tree-sitter-json==0.24.8 ===
+/data/data/com.termux/files/home/build/tree_sitter_json/src/parser.c:216:14: error: unknown type name 'TSFieldMapSlice'
+  216 | static const TSFieldMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
+      |              ^
+1 error generated.
