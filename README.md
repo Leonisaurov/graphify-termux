@@ -22,12 +22,20 @@ contenedor Termux real** (`termux/termux-docker`) en un runner arm64 nativo:
 
 1. `pkg update` + `pkg upgrade` (el python del contenedor debe coincidir con el
    del dispositivo para que los tags de los wheels coincidan: cp314 android).
-2. `pip wheel --no-binary :all:` de cada paquete del manifest
-   (`scripts/grammar_manifest.txt`) → wheels `*android_arm64_v8a.whl`.
-3. Test de runtime de cada grammar (`scripts/test_grammars.py`): import →
+2. `tree-sitter` core y `rapidfuzz`: `pip wheel --no-binary :all:` normal.
+3. **Grammars**: los bindings abi3 de PyPI son frágiles en Android (sus sdists
+   nuevos no traen `tree_sitter/parser.h` → falla el build desde source; y los
+   que compilan con scanner externo no exportan el símbolo con
+   `-fvisibility=hidden` → `dlopen failed` en runtime). Por eso cada grammar se
+   compila como **`.so` puro** con clang (`parser.c` + `scanner.c`, headers de
+   la era 0.25 extraídos del sdist de tree-sitter-python) y se empaqueta en un
+   **wheel shim** `tree_sitter_<lang>/` que expone `language()` +
+   `language_<símbolo>()` (la API exacta que graphify espera, incl.
+   `language_typescript()`/`language_tsx()`) cargando el `.so` con ctypes.
+4. Test de runtime de cada grammar (`scripts/test_grammars.py`): import →
    `Language()` (detecta ABI mismatch core/grammar) → parse de un snippet.
    Los wheels que fallan se mueven a `failed/` y no entran al release.
-4. Sube los wheels como artefacto; con tag `v*` (o manual + create_release)
+5. Sube los wheels como artefacto; con tag `v*` (o manual + create_release)
    publica un GitHub Release con los `.whl`.
 
 Las versiones del manifest se resuelven contra los rangos de `graphifyy`

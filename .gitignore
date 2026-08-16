@@ -5,3 +5,5 @@ failed/
 *.tar.gz
 __pycache__/
 *.pyc
+test-local/
+verify/

@@ -1,0 +1,364 @@
+=== tree-sitter-typescript==0.23.2 ===
+      writing bindings/python/tree_sitter_typescript.egg-info/PKG-INFO
+      writing dependency_links to bindings/python/tree_sitter_typescript.egg-info/dependency_links.txt
+      writing requirements to bindings/python/tree_sitter_typescript.egg-info/requires.txt
+      writing top-level names to bindings/python/tree_sitter_typescript.egg-info/top_level.txt
+      reading manifest file 'bindings/python/tree_sitter_typescript.egg-info/SOURCES.txt'
+      adding license file 'LICENSE'
+      writing manifest file 'bindings/python/tree_sitter_typescript.egg-info/SOURCES.txt'
+      copying bindings/python/tree_sitter_typescript/__init__.pyi -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_typescript
+      copying bindings/python/tree_sitter_typescript/binding.c -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_typescript
+      copying bindings/python/tree_sitter_typescript/py.typed -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_typescript
+      running build_ext
+      building '_binding' extension
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Itypescript/src -I/data/data/com.termux/files/usr/include/python3.14 -c bindings/python/tree_sitter_typescript/binding.c -o build/temp.android-24-arm64_v8a-cpython-314/bindings/python/tree_sitter_typescript/binding.o -std=c11 -fvisibility=hidden
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Itypescript/src -I/data/data/com.termux/files/usr/include/python3.14 -c tsx/src/parser.c -o build/temp.android-24-arm64_v8a-cpython-314/tsx/src/parser.o -std=c11 -fvisibility=hidden
+      tsx/src/parser.c:1:10: fatal error: 'tree_sitter/parser.h' file not found
+          1 | #include "tree_sitter/parser.h"
+            |          ^~~~~~~~~~~~~~~~~~~~~~
+      1 error generated.
+      error: Command '['aarch64-linux-android-clang', '-fno-strict-overflow', '-Wsign-compare', '-Wunreachable-code', '-DNDEBUG', '-g', '-O3', '-Wall', '-fstack-protector-strong', '-O3', '-fstack-protector-strong', '-O3', '-fPIC', '-DPy_LIMITED_API=0x03090000', '-DPY_SSIZE_T_CLEAN', '-DTREE_SITTER_HIDE_SYMBOLS', '-Itypescript/src', '-I/data/data/com.termux/files/usr/include/python3.14', '-c', 'tsx/src/parser.c', '-o', 'build/temp.android-24-arm64_v8a-cpython-314/tsx/src/parser.o', '-std=c11', '-fvisibility=hidden']' returned non-zero exit status 1.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for tree-sitter-typescript
+Failed to build tree-sitter-typescript
+ERROR: Failed to build one or more wheels
+=== tree-sitter-rust==0.24.2 ===
+      writing bindings/python/tree_sitter_rust.egg-info/PKG-INFO
+      writing dependency_links to bindings/python/tree_sitter_rust.egg-info/dependency_links.txt
+      writing requirements to bindings/python/tree_sitter_rust.egg-info/requires.txt
+      writing top-level names to bindings/python/tree_sitter_rust.egg-info/top_level.txt
+      reading manifest file 'bindings/python/tree_sitter_rust.egg-info/SOURCES.txt'
+      adding license file 'LICENSE'
+      writing manifest file 'bindings/python/tree_sitter_rust.egg-info/SOURCES.txt'
+      copying bindings/python/tree_sitter_rust/__init__.pyi -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_rust
+      copying bindings/python/tree_sitter_rust/binding.c -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_rust
+      copying bindings/python/tree_sitter_rust/py.typed -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_rust
+      running build_ext
+      building '_binding' extension
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c bindings/python/tree_sitter_rust/binding.c -o build/temp.android-24-arm64_v8a-cpython-314/bindings/python/tree_sitter_rust/binding.o -std=c11 -fvisibility=hidden
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c src/parser.c -o build/temp.android-24-arm64_v8a-cpython-314/src/parser.o -std=c11 -fvisibility=hidden
+      src/parser.c:3:10: fatal error: 'tree_sitter/parser.h' file not found
+          3 | #include "tree_sitter/parser.h"
+            |          ^~~~~~~~~~~~~~~~~~~~~~
+      1 error generated.
+      error: Command '['aarch64-linux-android-clang', '-fno-strict-overflow', '-Wsign-compare', '-Wunreachable-code', '-DNDEBUG', '-g', '-O3', '-Wall', '-fstack-protector-strong', '-O3', '-fstack-protector-strong', '-O3', '-fPIC', '-DPy_LIMITED_API=0x03090000', '-DPY_SSIZE_T_CLEAN', '-DTREE_SITTER_HIDE_SYMBOLS', '-Isrc', '-I/data/data/com.termux/files/usr/include/python3.14', '-c', 'src/parser.c', '-o', 'build/temp.android-24-arm64_v8a-cpython-314/src/parser.o', '-std=c11', '-fvisibility=hidden']' returned non-zero exit status 1.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for tree-sitter-rust
+Failed to build tree-sitter-rust
+ERROR: Failed to build one or more wheels
+=== tree-sitter-java==0.23.5 ===
+      writing bindings/python/tree_sitter_java.egg-info/PKG-INFO
+      writing dependency_links to bindings/python/tree_sitter_java.egg-info/dependency_links.txt
+      writing requirements to bindings/python/tree_sitter_java.egg-info/requires.txt
+      writing top-level names to bindings/python/tree_sitter_java.egg-info/top_level.txt
+      reading manifest file 'bindings/python/tree_sitter_java.egg-info/SOURCES.txt'
+      adding license file 'LICENSE'
+      writing manifest file 'bindings/python/tree_sitter_java.egg-info/SOURCES.txt'
+      copying bindings/python/tree_sitter_java/__init__.pyi -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_java
+      copying bindings/python/tree_sitter_java/binding.c -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_java
+      copying bindings/python/tree_sitter_java/py.typed -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_java
+      running build_ext
+      building '_binding' extension
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c bindings/python/tree_sitter_java/binding.c -o build/temp.android-24-arm64_v8a-cpython-314/bindings/python/tree_sitter_java/binding.o -std=c11 -fvisibility=hidden
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c src/parser.c -o build/temp.android-24-arm64_v8a-cpython-314/src/parser.o -std=c11 -fvisibility=hidden
+      src/parser.c:1:10: fatal error: 'tree_sitter/parser.h' file not found
+          1 | #include "tree_sitter/parser.h"
+            |          ^~~~~~~~~~~~~~~~~~~~~~
+      1 error generated.
+      error: Command '['aarch64-linux-android-clang', '-fno-strict-overflow', '-Wsign-compare', '-Wunreachable-code', '-DNDEBUG', '-g', '-O3', '-Wall', '-fstack-protector-strong', '-O3', '-fstack-protector-strong', '-O3', '-fPIC', '-DPy_LIMITED_API=0x03090000', '-DPY_SSIZE_T_CLEAN', '-DTREE_SITTER_HIDE_SYMBOLS', '-Isrc', '-I/data/data/com.termux/files/usr/include/python3.14', '-c', 'src/parser.c', '-o', 'build/temp.android-24-arm64_v8a-cpython-314/src/parser.o', '-std=c11', '-fvisibility=hidden']' returned non-zero exit status 1.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for tree-sitter-java
+Failed to build tree-sitter-java
+ERROR: Failed to build one or more wheels
+=== tree-sitter-groovy==0.1.2 ===
+      running egg_info
+      writing bindings/python/tree_sitter_groovy.egg-info/PKG-INFO
+      writing dependency_links to bindings/python/tree_sitter_groovy.egg-info/dependency_links.txt
+      writing requirements to bindings/python/tree_sitter_groovy.egg-info/requires.txt
+      writing top-level names to bindings/python/tree_sitter_groovy.egg-info/top_level.txt
+      reading manifest file 'bindings/python/tree_sitter_groovy.egg-info/SOURCES.txt'
+      writing manifest file 'bindings/python/tree_sitter_groovy.egg-info/SOURCES.txt'
+      copying bindings/python/tree_sitter_groovy/__init__.pyi -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_groovy
+      copying bindings/python/tree_sitter_groovy/binding.c -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_groovy
+      copying bindings/python/tree_sitter_groovy/py.typed -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_groovy
+      running build_ext
+      building '_binding' extension
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c bindings/python/tree_sitter_groovy/binding.c -o build/temp.android-24-arm64_v8a-cpython-314/bindings/python/tree_sitter_groovy/binding.o -std=c11 -fvisibility=hidden
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c src/parser.c -o build/temp.android-24-arm64_v8a-cpython-314/src/parser.o -std=c11 -fvisibility=hidden
+      src/parser.c:1:10: fatal error: 'tree_sitter/parser.h' file not found
+          1 | #include "tree_sitter/parser.h"
+            |          ^~~~~~~~~~~~~~~~~~~~~~
+      1 error generated.
+      error: Command '['aarch64-linux-android-clang', '-fno-strict-overflow', '-Wsign-compare', '-Wunreachable-code', '-DNDEBUG', '-g', '-O3', '-Wall', '-fstack-protector-strong', '-O3', '-fstack-protector-strong', '-O3', '-fPIC', '-DPy_LIMITED_API=0x03090000', '-DPY_SSIZE_T_CLEAN', '-DTREE_SITTER_HIDE_SYMBOLS', '-Isrc', '-I/data/data/com.termux/files/usr/include/python3.14', '-c', 'src/parser.c', '-o', 'build/temp.android-24-arm64_v8a-cpython-314/src/parser.o', '-std=c11', '-fvisibility=hidden']' returned non-zero exit status 1.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for tree-sitter-groovy
+Failed to build tree-sitter-groovy
+ERROR: Failed to build one or more wheels
+=== tree-sitter-cpp==0.23.4 ===
+      writing bindings/python/tree_sitter_cpp.egg-info/PKG-INFO
+      writing dependency_links to bindings/python/tree_sitter_cpp.egg-info/dependency_links.txt
+      writing requirements to bindings/python/tree_sitter_cpp.egg-info/requires.txt
+      writing top-level names to bindings/python/tree_sitter_cpp.egg-info/top_level.txt
+      reading manifest file 'bindings/python/tree_sitter_cpp.egg-info/SOURCES.txt'
+      adding license file 'LICENSE'
+      writing manifest file 'bindings/python/tree_sitter_cpp.egg-info/SOURCES.txt'
+      copying bindings/python/tree_sitter_cpp/__init__.pyi -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_cpp
+      copying bindings/python/tree_sitter_cpp/binding.c -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_cpp
+      copying bindings/python/tree_sitter_cpp/py.typed -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_cpp
+      running build_ext
+      building '_binding' extension
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c bindings/python/tree_sitter_cpp/binding.c -o build/temp.android-24-arm64_v8a-cpython-314/bindings/python/tree_sitter_cpp/binding.o -std=c11 -fvisibility=hidden
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c src/parser.c -o build/temp.android-24-arm64_v8a-cpython-314/src/parser.o -std=c11 -fvisibility=hidden
+      src/parser.c:1:10: fatal error: 'tree_sitter/parser.h' file not found
+          1 | #include "tree_sitter/parser.h"
+            |          ^~~~~~~~~~~~~~~~~~~~~~
+      1 error generated.
+      error: Command '['aarch64-linux-android-clang', '-fno-strict-overflow', '-Wsign-compare', '-Wunreachable-code', '-DNDEBUG', '-g', '-O3', '-Wall', '-fstack-protector-strong', '-O3', '-fstack-protector-strong', '-O3', '-fPIC', '-DPy_LIMITED_API=0x03090000', '-DPY_SSIZE_T_CLEAN', '-DTREE_SITTER_HIDE_SYMBOLS', '-Isrc', '-I/data/data/com.termux/files/usr/include/python3.14', '-c', 'src/parser.c', '-o', 'build/temp.android-24-arm64_v8a-cpython-314/src/parser.o', '-std=c11', '-fvisibility=hidden']' returned non-zero exit status 1.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for tree-sitter-cpp
+Failed to build tree-sitter-cpp
+ERROR: Failed to build one or more wheels
+=== tree-sitter-ruby==0.23.1 ===
+      writing bindings/python/tree_sitter_ruby.egg-info/PKG-INFO
+      writing dependency_links to bindings/python/tree_sitter_ruby.egg-info/dependency_links.txt
+      writing requirements to bindings/python/tree_sitter_ruby.egg-info/requires.txt
+      writing top-level names to bindings/python/tree_sitter_ruby.egg-info/top_level.txt
+      reading manifest file 'bindings/python/tree_sitter_ruby.egg-info/SOURCES.txt'
+      adding license file 'LICENSE'
+      writing manifest file 'bindings/python/tree_sitter_ruby.egg-info/SOURCES.txt'
+      copying bindings/python/tree_sitter_ruby/__init__.pyi -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_ruby
+      copying bindings/python/tree_sitter_ruby/binding.c -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_ruby
+      copying bindings/python/tree_sitter_ruby/py.typed -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_ruby
+      running build_ext
+      building '_binding' extension
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c bindings/python/tree_sitter_ruby/binding.c -o build/temp.android-24-arm64_v8a-cpython-314/bindings/python/tree_sitter_ruby/binding.o -std=c11 -fvisibility=hidden
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c src/parser.c -o build/temp.android-24-arm64_v8a-cpython-314/src/parser.o -std=c11 -fvisibility=hidden
+      src/parser.c:1:10: fatal error: 'tree_sitter/parser.h' file not found
+          1 | #include "tree_sitter/parser.h"
+            |          ^~~~~~~~~~~~~~~~~~~~~~
+      1 error generated.
+      error: Command '['aarch64-linux-android-clang', '-fno-strict-overflow', '-Wsign-compare', '-Wunreachable-code', '-DNDEBUG', '-g', '-O3', '-Wall', '-fstack-protector-strong', '-O3', '-fstack-protector-strong', '-O3', '-fPIC', '-DPy_LIMITED_API=0x03090000', '-DPY_SSIZE_T_CLEAN', '-DTREE_SITTER_HIDE_SYMBOLS', '-Isrc', '-I/data/data/com.termux/files/usr/include/python3.14', '-c', 'src/parser.c', '-o', 'build/temp.android-24-arm64_v8a-cpython-314/src/parser.o', '-std=c11', '-fvisibility=hidden']' returned non-zero exit status 1.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for tree-sitter-ruby
+Failed to build tree-sitter-ruby
+ERROR: Failed to build one or more wheels
+=== tree-sitter-kotlin==1.1.0 ===
+      writing bindings/python/tree_sitter_kotlin.egg-info/PKG-INFO
+      writing dependency_links to bindings/python/tree_sitter_kotlin.egg-info/dependency_links.txt
+      writing requirements to bindings/python/tree_sitter_kotlin.egg-info/requires.txt
+      writing top-level names to bindings/python/tree_sitter_kotlin.egg-info/top_level.txt
+      reading manifest file 'bindings/python/tree_sitter_kotlin.egg-info/SOURCES.txt'
+      adding license file 'LICENSE'
+      writing manifest file 'bindings/python/tree_sitter_kotlin.egg-info/SOURCES.txt'
+      copying bindings/python/tree_sitter_kotlin/__init__.pyi -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_kotlin
+      copying bindings/python/tree_sitter_kotlin/binding.c -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_kotlin
+      copying bindings/python/tree_sitter_kotlin/py.typed -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_kotlin
+      running build_ext
+      building '_binding' extension
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c bindings/python/tree_sitter_kotlin/binding.c -o build/temp.android-24-arm64_v8a-cpython-314/bindings/python/tree_sitter_kotlin/binding.o -std=c11 -fvisibility=hidden
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c src/parser.c -o build/temp.android-24-arm64_v8a-cpython-314/src/parser.o -std=c11 -fvisibility=hidden
+      src/parser.c:1:10: fatal error: 'tree_sitter/parser.h' file not found
+          1 | #include "tree_sitter/parser.h"
+            |          ^~~~~~~~~~~~~~~~~~~~~~
+      1 error generated.
+      error: Command '['aarch64-linux-android-clang', '-fno-strict-overflow', '-Wsign-compare', '-Wunreachable-code', '-DNDEBUG', '-g', '-O3', '-Wall', '-fstack-protector-strong', '-O3', '-fstack-protector-strong', '-O3', '-fPIC', '-DPy_LIMITED_API=0x03090000', '-DPY_SSIZE_T_CLEAN', '-DTREE_SITTER_HIDE_SYMBOLS', '-Isrc', '-I/data/data/com.termux/files/usr/include/python3.14', '-c', 'src/parser.c', '-o', 'build/temp.android-24-arm64_v8a-cpython-314/src/parser.o', '-std=c11', '-fvisibility=hidden']' returned non-zero exit status 1.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for tree-sitter-kotlin
+Failed to build tree-sitter-kotlin
+ERROR: Failed to build one or more wheels
+=== tree-sitter-scala==0.26.2 ===
+      writing bindings/python/tree_sitter_scala.egg-info/PKG-INFO
+      writing dependency_links to bindings/python/tree_sitter_scala.egg-info/dependency_links.txt
+      writing requirements to bindings/python/tree_sitter_scala.egg-info/requires.txt
+      writing top-level names to bindings/python/tree_sitter_scala.egg-info/top_level.txt
+      reading manifest file 'bindings/python/tree_sitter_scala.egg-info/SOURCES.txt'
+      adding license file 'LICENSE'
+      writing manifest file 'bindings/python/tree_sitter_scala.egg-info/SOURCES.txt'
+      copying bindings/python/tree_sitter_scala/__init__.pyi -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_scala
+      copying bindings/python/tree_sitter_scala/binding.c -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_scala
+      copying bindings/python/tree_sitter_scala/py.typed -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_scala
+      running build_ext
+      building '_binding' extension
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c bindings/python/tree_sitter_scala/binding.c -o build/temp.android-24-arm64_v8a-cpython-314/bindings/python/tree_sitter_scala/binding.o -std=c11 -fvisibility=hidden
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c src/parser.c -o build/temp.android-24-arm64_v8a-cpython-314/src/parser.o -std=c11 -fvisibility=hidden
+      src/parser.c:3:10: fatal error: 'tree_sitter/parser.h' file not found
+          3 | #include "tree_sitter/parser.h"
+            |          ^~~~~~~~~~~~~~~~~~~~~~
+      1 error generated.
+      error: Command '['aarch64-linux-android-clang', '-fno-strict-overflow', '-Wsign-compare', '-Wunreachable-code', '-DNDEBUG', '-g', '-O3', '-Wall', '-fstack-protector-strong', '-O3', '-fstack-protector-strong', '-O3', '-fPIC', '-DPy_LIMITED_API=0x03090000', '-DPY_SSIZE_T_CLEAN', '-DTREE_SITTER_HIDE_SYMBOLS', '-Isrc', '-I/data/data/com.termux/files/usr/include/python3.14', '-c', 'src/parser.c', '-o', 'build/temp.android-24-arm64_v8a-cpython-314/src/parser.o', '-std=c11', '-fvisibility=hidden']' returned non-zero exit status 1.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for tree-sitter-scala
+Failed to build tree-sitter-scala
+ERROR: Failed to build one or more wheels
+=== tree-sitter-php==0.23.11 ===
+      writing bindings/python/tree_sitter_php.egg-info/PKG-INFO
+      writing dependency_links to bindings/python/tree_sitter_php.egg-info/dependency_links.txt
+      writing requirements to bindings/python/tree_sitter_php.egg-info/requires.txt
+      writing top-level names to bindings/python/tree_sitter_php.egg-info/top_level.txt
+      reading manifest file 'bindings/python/tree_sitter_php.egg-info/SOURCES.txt'
+      adding license file 'LICENSE'
+      writing manifest file 'bindings/python/tree_sitter_php.egg-info/SOURCES.txt'
+      copying bindings/python/tree_sitter_php/__init__.pyi -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_php
+      copying bindings/python/tree_sitter_php/binding.c -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_php
+      copying bindings/python/tree_sitter_php/py.typed -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_php
+      running build_ext
+      building '_binding' extension
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Iphp/src -I/data/data/com.termux/files/usr/include/python3.14 -c bindings/python/tree_sitter_php/binding.c -o build/temp.android-24-arm64_v8a-cpython-314/bindings/python/tree_sitter_php/binding.o -std=c11 -fvisibility=hidden
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Iphp/src -I/data/data/com.termux/files/usr/include/python3.14 -c php/src/parser.c -o build/temp.android-24-arm64_v8a-cpython-314/php/src/parser.o -std=c11 -fvisibility=hidden
+      php/src/parser.c:1:10: fatal error: 'tree_sitter/parser.h' file not found
+          1 | #include "tree_sitter/parser.h"
+            |          ^~~~~~~~~~~~~~~~~~~~~~
+      1 error generated.
+      error: Command '['aarch64-linux-android-clang', '-fno-strict-overflow', '-Wsign-compare', '-Wunreachable-code', '-DNDEBUG', '-g', '-O3', '-Wall', '-fstack-protector-strong', '-O3', '-fstack-protector-strong', '-O3', '-fPIC', '-DPy_LIMITED_API=0x03090000', '-DPY_SSIZE_T_CLEAN', '-DTREE_SITTER_HIDE_SYMBOLS', '-Iphp/src', '-I/data/data/com.termux/files/usr/include/python3.14', '-c', 'php/src/parser.c', '-o', 'build/temp.android-24-arm64_v8a-cpython-314/php/src/parser.o', '-std=c11', '-fvisibility=hidden']' returned non-zero exit status 1.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for tree-sitter-php
+Failed to build tree-sitter-php
+ERROR: Failed to build one or more wheels
+=== tree-sitter-zig==1.1.2 ===
+      writing bindings/python/tree_sitter_zig.egg-info/PKG-INFO
+      writing dependency_links to bindings/python/tree_sitter_zig.egg-info/dependency_links.txt
+      writing requirements to bindings/python/tree_sitter_zig.egg-info/requires.txt
+      writing top-level names to bindings/python/tree_sitter_zig.egg-info/top_level.txt
+      reading manifest file 'bindings/python/tree_sitter_zig.egg-info/SOURCES.txt'
+      adding license file 'LICENSE'
+      writing manifest file 'bindings/python/tree_sitter_zig.egg-info/SOURCES.txt'
+      copying bindings/python/tree_sitter_zig/__init__.pyi -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_zig
+      copying bindings/python/tree_sitter_zig/binding.c -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_zig
+      copying bindings/python/tree_sitter_zig/py.typed -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_zig
+      running build_ext
+      building '_binding' extension
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c bindings/python/tree_sitter_zig/binding.c -o build/temp.android-24-arm64_v8a-cpython-314/bindings/python/tree_sitter_zig/binding.o -std=c11 -fvisibility=hidden
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c src/parser.c -o build/temp.android-24-arm64_v8a-cpython-314/src/parser.o -std=c11 -fvisibility=hidden
+      src/parser.c:1:10: fatal error: 'tree_sitter/parser.h' file not found
+          1 | #include "tree_sitter/parser.h"
+            |          ^~~~~~~~~~~~~~~~~~~~~~
+      1 error generated.
+      error: Command '['aarch64-linux-android-clang', '-fno-strict-overflow', '-Wsign-compare', '-Wunreachable-code', '-DNDEBUG', '-g', '-O3', '-Wall', '-fstack-protector-strong', '-O3', '-fstack-protector-strong', '-O3', '-fPIC', '-DPy_LIMITED_API=0x03090000', '-DPY_SSIZE_T_CLEAN', '-DTREE_SITTER_HIDE_SYMBOLS', '-Isrc', '-I/data/data/com.termux/files/usr/include/python3.14', '-c', 'src/parser.c', '-o', 'build/temp.android-24-arm64_v8a-cpython-314/src/parser.o', '-std=c11', '-fvisibility=hidden']' returned non-zero exit status 1.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for tree-sitter-zig
+Failed to build tree-sitter-zig
+ERROR: Failed to build one or more wheels
+=== tree-sitter-elixir==0.3.5 ===
+      writing dependency_links to bindings/python/tree_sitter_elixir.egg-info/dependency_links.txt
+      writing requirements to bindings/python/tree_sitter_elixir.egg-info/requires.txt
+      writing top-level names to bindings/python/tree_sitter_elixir.egg-info/top_level.txt
+      reading manifest file 'bindings/python/tree_sitter_elixir.egg-info/SOURCES.txt'
+      adding license file 'LICENSE'
+      adding license file 'NOTICE'
+      writing manifest file 'bindings/python/tree_sitter_elixir.egg-info/SOURCES.txt'
+      copying bindings/python/tree_sitter_elixir/__init__.pyi -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_elixir
+      copying bindings/python/tree_sitter_elixir/binding.c -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_elixir
+      copying bindings/python/tree_sitter_elixir/py.typed -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_elixir
+      running build_ext
+      building '_binding' extension
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c bindings/python/tree_sitter_elixir/binding.c -o build/temp.android-24-arm64_v8a-cpython-314/bindings/python/tree_sitter_elixir/binding.o -std=c11 -fvisibility=hidden
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c src/parser.c -o build/temp.android-24-arm64_v8a-cpython-314/src/parser.o -std=c11 -fvisibility=hidden
+      src/parser.c:1:10: fatal error: 'tree_sitter/parser.h' file not found
+          1 | #include "tree_sitter/parser.h"
+            |          ^~~~~~~~~~~~~~~~~~~~~~
+      1 error generated.
+      error: Command '['aarch64-linux-android-clang', '-fno-strict-overflow', '-Wsign-compare', '-Wunreachable-code', '-DNDEBUG', '-g', '-O3', '-Wall', '-fstack-protector-strong', '-O3', '-fstack-protector-strong', '-O3', '-fPIC', '-DPy_LIMITED_API=0x03090000', '-DPY_SSIZE_T_CLEAN', '-DTREE_SITTER_HIDE_SYMBOLS', '-Isrc', '-I/data/data/com.termux/files/usr/include/python3.14', '-c', 'src/parser.c', '-o', 'build/temp.android-24-arm64_v8a-cpython-314/src/parser.o', '-std=c11', '-fvisibility=hidden']' returned non-zero exit status 1.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for tree-sitter-elixir
+Failed to build tree-sitter-elixir
+ERROR: Failed to build one or more wheels
+=== tree-sitter-julia==0.23.1 ===
+      writing bindings/python/tree_sitter_julia.egg-info/PKG-INFO
+      writing dependency_links to bindings/python/tree_sitter_julia.egg-info/dependency_links.txt
+      writing requirements to bindings/python/tree_sitter_julia.egg-info/requires.txt
+      writing top-level names to bindings/python/tree_sitter_julia.egg-info/top_level.txt
+      reading manifest file 'bindings/python/tree_sitter_julia.egg-info/SOURCES.txt'
+      adding license file 'LICENSE'
+      writing manifest file 'bindings/python/tree_sitter_julia.egg-info/SOURCES.txt'
+      copying bindings/python/tree_sitter_julia/__init__.pyi -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_julia
+      copying bindings/python/tree_sitter_julia/binding.c -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_julia
+      copying bindings/python/tree_sitter_julia/py.typed -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_julia
+      running build_ext
+      building '_binding' extension
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c bindings/python/tree_sitter_julia/binding.c -o build/temp.android-24-arm64_v8a-cpython-314/bindings/python/tree_sitter_julia/binding.o -std=c11 -fvisibility=hidden
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c src/parser.c -o build/temp.android-24-arm64_v8a-cpython-314/src/parser.o -std=c11 -fvisibility=hidden
+      src/parser.c:1:10: fatal error: 'tree_sitter/parser.h' file not found
+          1 | #include "tree_sitter/parser.h"
+            |          ^~~~~~~~~~~~~~~~~~~~~~
+      1 error generated.
+      error: Command '['aarch64-linux-android-clang', '-fno-strict-overflow', '-Wsign-compare', '-Wunreachable-code', '-DNDEBUG', '-g', '-O3', '-Wall', '-fstack-protector-strong', '-O3', '-fstack-protector-strong', '-O3', '-fPIC', '-DPy_LIMITED_API=0x03090000', '-DPY_SSIZE_T_CLEAN', '-DTREE_SITTER_HIDE_SYMBOLS', '-Isrc', '-I/data/data/com.termux/files/usr/include/python3.14', '-c', 'src/parser.c', '-o', 'build/temp.android-24-arm64_v8a-cpython-314/src/parser.o', '-std=c11', '-fvisibility=hidden']' returned non-zero exit status 1.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for tree-sitter-julia
+Failed to build tree-sitter-julia
+ERROR: Failed to build one or more wheels
+=== tree-sitter-verilog==1.0.3 ===
+      writing bindings/python/tree_sitter_verilog.egg-info/PKG-INFO
+      writing dependency_links to bindings/python/tree_sitter_verilog.egg-info/dependency_links.txt
+      writing requirements to bindings/python/tree_sitter_verilog.egg-info/requires.txt
+      writing top-level names to bindings/python/tree_sitter_verilog.egg-info/top_level.txt
+      reading manifest file 'bindings/python/tree_sitter_verilog.egg-info/SOURCES.txt'
+      adding license file 'LICENSE'
+      writing manifest file 'bindings/python/tree_sitter_verilog.egg-info/SOURCES.txt'
+      copying bindings/python/tree_sitter_verilog/__init__.pyi -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_verilog
+      copying bindings/python/tree_sitter_verilog/binding.c -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_verilog
+      copying bindings/python/tree_sitter_verilog/py.typed -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_verilog
+      running build_ext
+      building '_binding' extension
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c bindings/python/tree_sitter_verilog/binding.c -o build/temp.android-24-arm64_v8a-cpython-314/bindings/python/tree_sitter_verilog/binding.o -std=c11 -fvisibility=hidden
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c src/parser.c -o build/temp.android-24-arm64_v8a-cpython-314/src/parser.o -std=c11 -fvisibility=hidden
+      src/parser.c:1:10: fatal error: 'tree_sitter/parser.h' file not found
+          1 | #include "tree_sitter/parser.h"
+            |          ^~~~~~~~~~~~~~~~~~~~~~
+      1 error generated.
+      error: Command '['aarch64-linux-android-clang', '-fno-strict-overflow', '-Wsign-compare', '-Wunreachable-code', '-DNDEBUG', '-g', '-O3', '-Wall', '-fstack-protector-strong', '-O3', '-fstack-protector-strong', '-O3', '-fPIC', '-DPy_LIMITED_API=0x03090000', '-DPY_SSIZE_T_CLEAN', '-DTREE_SITTER_HIDE_SYMBOLS', '-Isrc', '-I/data/data/com.termux/files/usr/include/python3.14', '-c', 'src/parser.c', '-o', 'build/temp.android-24-arm64_v8a-cpython-314/src/parser.o', '-std=c11', '-fvisibility=hidden']' returned non-zero exit status 1.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for tree-sitter-verilog
+Failed to build tree-sitter-verilog
+ERROR: Failed to build one or more wheels
+=== tree-sitter-json==0.24.8 ===
+      writing bindings/python/tree_sitter_json.egg-info/PKG-INFO
+      writing dependency_links to bindings/python/tree_sitter_json.egg-info/dependency_links.txt
+      writing requirements to bindings/python/tree_sitter_json.egg-info/requires.txt
+      writing top-level names to bindings/python/tree_sitter_json.egg-info/top_level.txt
+      reading manifest file 'bindings/python/tree_sitter_json.egg-info/SOURCES.txt'
+      adding license file 'LICENSE'
+      writing manifest file 'bindings/python/tree_sitter_json.egg-info/SOURCES.txt'
+      copying bindings/python/tree_sitter_json/__init__.pyi -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_json
+      copying bindings/python/tree_sitter_json/binding.c -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_json
+      copying bindings/python/tree_sitter_json/py.typed -> build/lib.android-24-arm64_v8a-cpython-314/tree_sitter_json
+      running build_ext
+      building '_binding' extension
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c bindings/python/tree_sitter_json/binding.c -o build/temp.android-24-arm64_v8a-cpython-314/bindings/python/tree_sitter_json/binding.o -std=c11 -fvisibility=hidden
+      aarch64-linux-android-clang -fno-strict-overflow -Wsign-compare -Wunreachable-code -DNDEBUG -g -O3 -Wall -fstack-protector-strong -O3 -fstack-protector-strong -O3 -fPIC -DPy_LIMITED_API=0x03090000 -DPY_SSIZE_T_CLEAN -DTREE_SITTER_HIDE_SYMBOLS -Isrc -I/data/data/com.termux/files/usr/include/python3.14 -c src/parser.c -o build/temp.android-24-arm64_v8a-cpython-314/src/parser.o -std=c11 -fvisibility=hidden
+      src/parser.c:1:10: fatal error: 'tree_sitter/parser.h' file not found
+          1 | #include "tree_sitter/parser.h"
+            |          ^~~~~~~~~~~~~~~~~~~~~~
+      1 error generated.
+      error: Command '['aarch64-linux-android-clang', '-fno-strict-overflow', '-Wsign-compare', '-Wunreachable-code', '-DNDEBUG', '-g', '-O3', '-Wall', '-fstack-protector-strong', '-O3', '-fstack-protector-strong', '-O3', '-fPIC', '-DPy_LIMITED_API=0x03090000', '-DPY_SSIZE_T_CLEAN', '-DTREE_SITTER_HIDE_SYMBOLS', '-Isrc', '-I/data/data/com.termux/files/usr/include/python3.14', '-c', 'src/parser.c', '-o', 'build/temp.android-24-arm64_v8a-cpython-314/src/parser.o', '-std=c11', '-fvisibility=hidden']' returned non-zero exit status 1.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for tree-sitter-json
+Failed to build tree-sitter-json
+ERROR: Failed to build one or more wheels

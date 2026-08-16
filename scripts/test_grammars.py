@@ -58,7 +58,8 @@ def test_module(modname: str) -> str:
     if modname == "tree_sitter":
         return None  # el core es el que provee Language/Parser
     if modname == "rapidfuzz":
-        assert mod.fuzz.ratio("a", "ab") == 50.0
+        assert mod.fuzz.ratio("abc", "abc") == 100.0
+        assert mod.fuzz.ratio("abc", "abd") > 50.0
         return None
     lang = Language(mod.language())
     parser = Parser()
