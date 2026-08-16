@@ -126,8 +126,11 @@ while IFS= read -r spec; do
     tar xzf "$sdist" -C "$BUILD_DIR/$mod" --strip-components=1
   fi
 
-  PARSERS="$(find "$BUILD_DIR/$mod" -name parser.c | sort)"
-  SCANNERS="$(find "$BUILD_DIR/$mod" -name scanner.c | sort || true)"
+  # Excluir examples/: tree-sitter-c trae examples/parser.c (que incluye
+  # "runtime/parser.h", un fichero de test antiguo) y rompe la compilacion
+  # si se compila junto con src/parser.c.
+  PARSERS="$(find "$BUILD_DIR/$mod" -name parser.c | grep -v '/examples/' | sort)"
+  SCANNERS="$(find "$BUILD_DIR/$mod" -name scanner.c | grep -v '/examples/' | sort || true)"
   if [ -z "$PARSERS" ]; then
     echo "FAIL sin parser.c: $spec"
     echo "=== $spec ===" >> "$FAILED/build-failed.txt"
@@ -135,12 +138,15 @@ while IFS= read -r spec; do
     continue
   fi
 
-  # headers: los del propio repo/sdist si existen (misma familia que su
-  # parser.c); si no, los de master del repo tree-sitter como ultimo recurso.
+  # headers: SIEMPRE incluir -I$TS_HEADERS (los headers de master del repo
+  # tree-sitter: parser.h/array.h que los scanner.c de las grammars incluyen
+  # como tree_sitter/parser.h y tree_sitter/array.h — esto arregla typescript
+  # y php). Si la grammar trae SU propio tree_sitter/parser.h se añade tambien
+  # (misma familia que su parser.c), pero nunca reemplaza a TS_HEADERS.
   HDR_ARGS="-I$TS_HEADERS"
   local_hdr="$(find "$BUILD_DIR/$mod" -path "*tree_sitter/parser.h" | head -1)"
   if [ -n "$local_hdr" ]; then
-    HDR_ARGS="-I$(dirname "$local_hdr")"
+    HDR_ARGS="$HDR_ARGS -I$(dirname "$local_hdr")"
   fi
 
   if clang -shared -fPIC -O3 -std=c11 $HDR_ARGS $PARSERS $SCANNERS \
@@ -170,40 +176,43 @@ import os
 import sys
 mod, pkg, ver, symbols = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4].split()
 sopath = "libtree-sitter-%s.so" % mod
-# El "lenguaje principal" es el simbolo tree_sitter_* sin "external" (los
-# external_scanner_* son helpers del scanner). NUNCA usar dir(ctypes.CDLL)
-# para descubrir simbolos: CPython no los lista por dir(); solo funciona
-# getattr(_lib, "nombre") que hace dlsym.
-main = next((s for s in symbols if "external" not in s), None)
+# graphify SIEMPRE hace Language(mod.language()). En el binding tree-sitter
+# 0.26, Language() acepta una PyCapsule "tree_sitter.Language" o un PyLong
+# (el puntero TSLanguage* como entero). Por eso language() devuelve el INT
+# de llamar tree_sitter_X() con restype=c_void_p — NO un objeto Language ni
+# un POINTER de ctypes (eso da "an integer is required").
+# Los simbolos "external_scanner_*" son helpers del scanner, no lenguajes:
+# se excluyen. Por cada lenguaje principal se define language_<sufijo>() y
+# language() apunta al primer lenguaje (typescript expone language_typescript
+# y language_tsx; el resto solo language_x + language()).
+principals = [s for s in symbols if "external" not in s]
+main = principals[0] if principals else None
 lines = [
     "import ctypes, os",
-    "from tree_sitter import Language",
     "",
     "_LIB = os.path.join(os.path.dirname(os.path.abspath(__file__)), %r)" % sopath,
     "",
     "def _lib():",
     "    return ctypes.CDLL(_LIB)",
     "",
+    "def _ptr(name):",
+    "    lib = _lib()",
+    "    fn = getattr(lib, name)",
+    "    fn.restype = ctypes.c_void_p",
+    "    return fn()",
+    "",
 ]
-if main:
-    lines += [
-        "def language():",
-        "    return Language(_lib().%s)" % main,
-        "",
-    ]
-else:
-    lines += [
-        "def language():",
-        "    raise RuntimeError('no tree_sitter_* language function in %s' % _LIB)",
-        "",
-    ]
-for s in symbols:
-    if "external" in s:
-        continue
+for s in principals:
     suffix = s[len("tree_sitter_"):]
     lines += [
         "def language_%s():" % suffix,
-        "    return Language(_lib().%s)" % s,
+        "    return _ptr(%r)" % s,
+        "",
+    ]
+if main:
+    lines += [
+        "def language():",
+        "    return _ptr(%r)" % main,
         "",
     ]
 open(os.path.join(mod, "__init__.py"), "w").write("\n".join(lines))
