@@ -58,6 +58,13 @@ for h in parser.h alloc.h array.h ts_assert.h; do
   fi
 done
 
+# api.h del core (lib/include/tree_sitter/api.h): lo necesita alloc.c del core
+# (que vinculamos para resolver ts_current_* en grammars como php).
+if [ ! -f "$TS_HEADERS/tree_sitter/api.h" ]; then
+  curl -fsSL "https://raw.githubusercontent.com/tree-sitter/tree-sitter/master/lib/include/tree_sitter/api.h" \
+    -o "$TS_HEADERS/tree_sitter/api.h" || { echo "ERROR: no pude bajar api.h"; exit 1; }
+fi
+
 # alloc.c del core: define ts_current_calloc/realloc/free/allocator. Algunas
 # grammars (php) referencian esas funciones del runtime en su parser.c/.so;
 # si quedan sin resolver, se vinculan aqui al recompilar (ver mas abajo).
