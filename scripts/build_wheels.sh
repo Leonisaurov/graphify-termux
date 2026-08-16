@@ -34,6 +34,9 @@ echo "== [3/5] pip base =="
 python -m pip install --upgrade pip setuptools wheel
 
 echo "== [4/5] compilar wheels (uno por uno, tolerante a fallos) =="
+# NOTA: el contenedor termux-docker no tiene directorio temporal global
+# escribible — usar $HOME (el home del uid 1000) para logs y venv de test.
+LOG="$HOME/build.log"
 while IFS= read -r spec; do
   # saltar lineas vacias y comentarios
   if [ -z "$spec" ] || [ "${spec#\#}" != "$spec" ]; then
@@ -41,25 +44,25 @@ while IFS= read -r spec; do
   fi
   name="${spec%%==*}"
   echo "--- build: $spec ---"
-  if python -m pip wheel --no-deps --no-binary :all: "$spec" -w "$WHEELS" --progress-bar off >/tmp/build.log 2>&1; then
+  if python -m pip wheel --no-deps --no-binary :all: "$spec" -w "$WHEELS" --progress-bar off >"$LOG" 2>&1; then
     echo "OK  build: $spec"
   else
     echo "FAIL build: $spec"
     echo "=== $spec ===" >> "$FAILED/build-failed.txt"
-    tail -25 /tmp/build.log >> "$FAILED/build-failed.txt"
+    tail -25 "$LOG" >> "$FAILED/build-failed.txt"
   fi
 done < "$MANIFEST"
 
 echo "== [5/5] test de runtime (import + Language + parse) =="
 # solo si hay al menos un wheel del core
 if ls "$WHEELS"/tree_sitter-*.whl >/dev/null 2>&1; then
-  python -m venv /tmp/testvenv --system-site-packages
+  python -m venv "$HOME/testvenv" --system-site-packages
   # instalar TODOS los wheels generados (sin deps: ya estan todos aqui)
-  /tmp/testvenv/bin/pip install --no-index --no-deps --find-links "$WHEELS" \
-    "$WHEELS"/*.whl >/tmp/pip-test-install.log 2>&1 \
-    || { echo "FALLO instalando wheels en venv de test"; tail -20 /tmp/pip-test-install.log; exit 1; }
+  "$HOME/testvenv/bin/pip" install --no-index --no-deps --find-links "$WHEELS" \
+    "$WHEELS"/*.whl >"$HOME/pip-test-install.log" 2>&1 \
+    || { echo "FALLO instalando wheels en venv de test"; tail -20 "$HOME/pip-test-install.log"; exit 1; }
   # test_grammars.py mueve los wheels que fallan a FAILED/
-  /tmp/testvenv/bin/python "$SCRIPTS/test_grammars.py" "$WHEELS" "$FAILED" \
+  "$HOME/testvenv/bin/python" "$SCRIPTS/test_grammars.py" "$WHEELS" "$FAILED" \
     || echo "WARN: test_grammars.py termino con codigo != 0 (ver failed/)"
 else
   echo "ERROR: no se construyo el wheel del core tree-sitter"
