@@ -88,21 +88,33 @@ while IFS= read -r spec; do
   echo "--- build: $spec (shim .so) ---"
   rm -rf "$BUILD_DIR/$mod"
   mkdir -p "$BUILD_DIR/$mod"
-  if [ "$pkg" = "tree-sitter-typescript" ]; then
-    # el sdist de PyPI de typescript esta incompleto (no trae common/scanner.h
-    # que su scanner.c incluye); el tarball del repo de GitHub si lo trae.
-    curl -fsSL "https://github.com/tree-sitter/tree-sitter-typescript/archive/refs/tags/v$ver.tar.gz" \
-      -o "$SDIST_DIR/$mod-src.tar.gz" || { echo "FAIL download: $spec"; continue; }
-    tar xzf "$SDIST_DIR/$mod-src.tar.gz" -C "$BUILD_DIR/$mod" --strip-components=1
-  else
-    pip download --no-deps --no-binary :all: "$spec" -d "$SDIST_DIR" --progress-bar off >/dev/null 2>&1
-    sdist="$(ls "$SDIST_DIR"/"$pkg"-"$ver".tar.gz 2>/dev/null || ls "$SDIST_DIR"/"$mod"-"$ver".tar.gz 2>/dev/null || true)"
-    if [ -z "$sdist" ]; then
-      echo "FAIL download: $spec"
-      echo "=== $spec ===" >> "$FAILED/build-failed.txt"
-      echo "no se pudo descargar el sdist" >> "$FAILED/build-failed.txt"
-      continue
-    fi
+  pip download --no-deps --no-binary :all: "$spec" -d "$SDIST_DIR" --progress-bar off >/dev/null 2>&1
+  sdist="$(ls "$SDIST_DIR"/"$pkg"-"$ver".tar.gz 2>/dev/null || ls "$SDIST_DIR"/"$mod"-"$ver".tar.gz 2>/dev/null || true)"
+  if [ -z "$sdist" ]; then
+    echo "FAIL download: $spec"
+    echo "=== $spec ===" >> "$FAILED/build-failed.txt"
+    echo "no se pudo descargar el sdist" >> "$FAILED/build-failed.txt"
+    continue
+  fi
+
+  # Preferimos el tarball del repo de GitHub: trae parser.c + headers +
+  # scanner.c del MISMO commit. (Los sdists de PyPI estan incompletos: sin
+  # tree_sitter/parser.h, con parser.c regenerado que usa tipos que el
+  # header no define — TSFieldMapSlice — y sin common/scanner.h en
+  # typescript.) La URL del repo se extrae del PKG-INFO del sdist.
+  REPO_URL="$(tar xzf "$sdist" -O --wildcards "*egg-info/PKG-INFO" 2>/dev/null | grep -aoE "https://github.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+" | head -1)"
+  GOT_REPO=0
+  if [ -n "$REPO_URL" ]; then
+    for TAG in "v$ver" "$ver"; do
+      if curl -fsSL "${REPO_URL%/}/archive/refs/tags/$TAG.tar.gz" -o "$SDIST_DIR/$mod-src.tar.gz" 2>/dev/null; then
+        tar xzf "$SDIST_DIR/$mod-src.tar.gz" -C "$BUILD_DIR/$mod" --strip-components=1
+        GOT_REPO=1
+        break
+      fi
+    done
+  fi
+  if [ "$GOT_REPO" = "0" ]; then
+    echo "WARN: sin tarball del repo ($REPO_URL tag v$ver/$ver); uso el sdist"
     tar xzf "$sdist" -C "$BUILD_DIR/$mod" --strip-components=1
   fi
 
@@ -115,8 +127,13 @@ while IFS= read -r spec; do
     continue
   fi
 
-  # headers: siempre los de master (backward compatible, definen TSFieldMapSlice)
+  # headers: los del propio repo/sdist si existen (misma familia que su
+  # parser.c); si no, los de master del repo tree-sitter como ultimo recurso.
   HDR_ARGS="-I$TS_HEADERS"
+  local_hdr="$(find "$BUILD_DIR/$mod" -path "*tree_sitter/parser.h" | head -1)"
+  if [ -n "$local_hdr" ]; then
+    HDR_ARGS="-I$(dirname "$local_hdr")"
+  fi
 
   if clang -shared -fPIC -O3 -std=c11 $HDR_ARGS $PARSERS $SCANNERS \
       -o "$BUILD_DIR/$mod/libtree-sitter-$mod.so" >"$LOG" 2>&1; then
@@ -176,8 +193,7 @@ from setuptools import setup
 setup(name="$pkg", version="$ver", packages=["$mod"], package_data={"$mod": ["*.so"]})
 PY
 
-  if (cd "$BUILD_DIR/$mod" && python -m pip wheel . --no-deps --no-build-isolation \
-      --plat-name android_arm64_v8a -w "$WHEELS" --progress-bar off) >"$LOG" 2>&1; then
+  if (cd "$BUILD_DIR/$mod" && python setup.py bdist_wheel --plat-name android_arm64_v8a -d "$WHEELS") >"$LOG" 2>&1; then
     echo "OK  wheel: $spec"
   else
     echo "FAIL wheel: $spec"
