@@ -51,7 +51,7 @@ echo "== [4/6] headers de grammars (de master del repo tree-sitter) =="
 # compatible con parser.c generados desde 0.24.
 TS_HEADERS="$HOME/ts-headers"
 mkdir -p "$TS_HEADERS/tree_sitter"
-for h in parser.h alloc.h array.h; do
+for h in parser.h alloc.h array.h ts_assert.h; do
   if [ ! -f "$TS_HEADERS/tree_sitter/$h" ]; then
     curl -fsSL "https://raw.githubusercontent.com/tree-sitter/tree-sitter/master/lib/src/$h" \
       -o "$TS_HEADERS/tree_sitter/$h" || { echo "ERROR: no pude bajar headers $h"; exit 1; }
