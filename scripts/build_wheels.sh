@@ -103,18 +103,26 @@ while IFS= read -r spec; do
   # header no define — TSFieldMapSlice — y sin common/scanner.h en
   # typescript.) La URL del repo se extrae del PKG-INFO del sdist.
   REPO_URL="$(tar xzf "$sdist" -O --wildcards "*egg-info/PKG-INFO" 2>/dev/null | grep -aoE "https://github.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+" | head -1)"
-  GOT_REPO=0
+  GOT_SRC=0
   if [ -n "$REPO_URL" ]; then
     for TAG in "v$ver" "$ver"; do
       if curl -fsSL "${REPO_URL%/}/archive/refs/tags/$TAG.tar.gz" -o "$SDIST_DIR/$mod-src.tar.gz" 2>/dev/null; then
+        rm -rf "$BUILD_DIR/$mod"
+        mkdir -p "$BUILD_DIR/$mod"
         tar xzf "$SDIST_DIR/$mod-src.tar.gz" -C "$BUILD_DIR/$mod" --strip-components=1
-        GOT_REPO=1
+        # si el tarball no tiene parser.c (repo con estructura distinta),
+        # descartarlo y usar el sdist
+        if [ -n "$(find "$BUILD_DIR/$mod" -name parser.c | head -1)" ]; then
+          GOT_SRC=1
+        fi
         break
       fi
     done
   fi
-  if [ "$GOT_REPO" = "0" ]; then
-    echo "WARN: sin tarball del repo ($REPO_URL tag v$ver/$ver); uso el sdist"
+  if [ "$GOT_SRC" = "0" ]; then
+    echo "WARN: sin tarball util del repo ($REPO_URL tag v$ver/$ver); uso el sdist"
+    rm -rf "$BUILD_DIR/$mod"
+    mkdir -p "$BUILD_DIR/$mod"
     tar xzf "$sdist" -C "$BUILD_DIR/$mod" --strip-components=1
   fi
 
@@ -193,7 +201,7 @@ from setuptools import setup
 setup(name="$pkg", version="$ver", packages=["$mod"], package_data={"$mod": ["*.so"]})
 PY
 
-  if (cd "$BUILD_DIR/$mod" && python setup.py bdist_wheel --plat-name android_arm64_v8a -d "$WHEELS") >"$LOG" 2>&1; then
+  if (cd "$BUILD_DIR/$mod" && python setup.py bdist_wheel -d "$WHEELS") >"$LOG" 2>&1; then
     echo "OK  wheel: $spec"
   else
     echo "FAIL wheel: $spec"

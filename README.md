@@ -33,9 +33,12 @@ contenedor Termux real** (`termux/termux-docker`) en un runner arm64 nativo:
    master del repo tree-sitter) y se empaqueta en un **wheel shim**
    `tree_sitter_<lang>/` que expone `language()` + `language_<símbolo>()` (la
    API exacta que graphify espera, incl. `language_typescript()`/`language_tsx()`)
-   cargando el `.so` con ctypes. El sdist de `tree-sitter-typescript` está
-   incompleto (sin `common/scanner.h`): se compila desde el tarball del repo
-   de GitHub.
+   cargando el `.so` con ctypes. Los wheels shim usan tag `py3-none-any` (pip
+   de Termux rechaza tags de plataforma android sin el sufijo de API level;
+   el contenido binario se valida en el test de runtime). El sdist de
+   `tree-sitter-typescript` está incompleto (sin `common/scanner.h`): todas
+   las grammars se compilan desde el tarball del repo de GitHub (URL extraída
+   del PKG-INFO), que trae parser.c + headers + scanner del mismo commit.
 4. Test de runtime de cada grammar (`scripts/test_grammars.py`): import →
    `Language()` (detecta ABI mismatch core/grammar) → parse de un snippet.
    Los wheels que fallan se mueven a `failed/` y no entran al release.
