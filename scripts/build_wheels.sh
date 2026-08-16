@@ -58,6 +58,15 @@ for h in parser.h alloc.h array.h ts_assert.h; do
   fi
 done
 
+# alloc.c del core: define ts_current_calloc/realloc/free/allocator. Algunas
+# grammars (php) referencian esas funciones del runtime en su parser.c/.so;
+# si quedan sin resolver, se vinculan aqui al recompilar (ver mas abajo).
+TS_RUNTIME_ALLOC="$HOME/ts-runtime-alloc.c"
+if [ ! -f "$TS_RUNTIME_ALLOC" ]; then
+  curl -fsSL "https://raw.githubusercontent.com/tree-sitter/tree-sitter/master/lib/src/alloc.c" \
+    -o "$TS_RUNTIME_ALLOC" || { echo "ERROR: no pude bajar alloc.c"; exit 1; }
+fi
+
 echo "== [5/6] build (core/rapidfuzz: pip wheel | grammars: .so + shim) =="
 rm -rf "$BUILD_DIR"/* "$SDIST_DIR"/*
 # los headers ya extraidos en [4/6] no se tocan (estan en $TS_HEADERS)
@@ -151,7 +160,24 @@ while IFS= read -r spec; do
 
   if clang -shared -fPIC -O3 -std=c11 $HDR_ARGS $PARSERS $SCANNERS \
       -o "$BUILD_DIR/$mod/libtree-sitter-$mod.so" >"$LOG" 2>&1; then
-    echo "OK  compile: $spec"
+    # Si el .so referencía funciones del runtime tree-sitter que quedan sin
+    # resolver (p.ej. php usa ts_current_calloc/realloc/free de alloc.c del
+    # core), recompilamos vinculando alloc.c para resolverlas en el propio .so.
+    UNRESOLVED="$(nm -u "$BUILD_DIR/$mod/libtree-sitter-$mod.so" 2>/dev/null | awk '{print $2}' | grep -E '^ts_current_(calloc|realloc|free)$' || true)"
+    if [ -n "$UNRESOLVED" ]; then
+      echo "  recompilo con alloc.c del core para resolver: $UNRESOLVED"
+      if clang -shared -fPIC -O3 -std=c11 $HDR_ARGS $PARSERS $SCANNERS "$TS_RUNTIME_ALLOC" \
+          -o "$BUILD_DIR/$mod/libtree-sitter-$mod.so" >"$LOG" 2>&1; then
+        echo "OK  compile: $spec (con alloc.c)"
+      else
+        echo "FAIL compile: $spec"
+        echo "=== $spec ===" >> "$FAILED/build-failed.txt"
+        tail -15 "$LOG" >> "$FAILED/build-failed.txt"
+        continue
+      fi
+    else
+      echo "OK  compile: $spec"
+    fi
   else
     echo "FAIL compile: $spec"
     echo "=== $spec ===" >> "$FAILED/build-failed.txt"
