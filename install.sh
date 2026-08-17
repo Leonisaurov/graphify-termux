@@ -155,15 +155,29 @@ else
             echo "ERROR: instalando $w"; exit 1; }
     done
 fi
-# 2) graphifyy con --no-deps: numpy/networkx nativos del sistema + nuestros
-#    wheels ya instalados (tree-sitter 0.26.0 deliberadamente fuera del rango
-#    <0.26 de graphify para soportar todas las grammars).
-if "$VENV_PY" -m pip --version >/dev/null 2>&1; then
-    "$VENV_PY" -m pip install --no-deps "graphifyy==$GRAPHIFY_VERSION" \
-        || { echo "ERROR: instalando graphifyy"; exit 1; }
+# 2) graphifyy: si el release trae el wheel parcheado (+termux), se instala de
+#    ahi (sin tocar PyPI). Si no, cae a PyPI con --no-deps: numpy/networkx
+#    nativos del sistema + nuestros wheels ya instalados (tree-sitter 0.26.0
+#    deliberadamente fuera del rango <0.26 de graphify para soportar todas las
+#    grammars).
+GFX_WHEEL="$(ls "$WHEEL_DIR"/graphifyy-*.whl 2>/dev/null | head -1 || true)"
+if [ -n "$GFX_WHEEL" ]; then
+    echo "  instalando graphifyy desde wheel del release: $(basename "$GFX_WHEEL")"
+    if "$VENV_PY" -m pip --version >/dev/null 2>&1; then
+        "$VENV_PY" -m pip install --no-deps --no-index "$GFX_WHEEL" \
+            || { echo "ERROR: instalando graphifyy (wheel)"; exit 1; }
+    else
+        python3 -m pip install --no-deps --no-index --target "$SP" "$GFX_WHEEL" \
+            || { echo "ERROR: instalando graphifyy (wheel)"; exit 1; }
+    fi
 else
-    python3 -m pip install --no-deps --target "$SP" "graphifyy==$GRAPHIFY_VERSION" \
-        || { echo "ERROR: instalando graphifyy"; exit 1; }
+    if "$VENV_PY" -m pip --version >/dev/null 2>&1; then
+        "$VENV_PY" -m pip install --no-deps "graphifyy==$GRAPHIFY_VERSION" \
+            || { echo "ERROR: instalando graphifyy"; exit 1; }
+    else
+        python3 -m pip install --no-deps --target "$SP" "graphifyy==$GRAPHIFY_VERSION" \
+            || { echo "ERROR: instalando graphifyy"; exit 1; }
+    fi
 fi
 
 echo "== [5/6] launcher (entry point) =="
