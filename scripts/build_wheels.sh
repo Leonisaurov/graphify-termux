@@ -72,6 +72,12 @@ TS_RUNTIME_ALLOC="$HOME/ts-runtime-alloc.c"
 if [ ! -f "$TS_RUNTIME_ALLOC" ]; then
   curl -fsSL "https://raw.githubusercontent.com/tree-sitter/tree-sitter/master/lib/src/alloc.c" \
     -o "$TS_RUNTIME_ALLOC" || { echo "ERROR: no pude bajar alloc.c"; exit 1; }
+  # alloc.c hace `#include "alloc.h"`, pero solo tenemos el header bajado en
+  # $TS_HEADERS/tree_sitter/alloc.h (TS_PUBLIC se define ahi). Con -I$TS_HEADERS
+  # `"alloc.h"` no se resuelve y TS_PUBLIC queda indefinido (php falla con
+  # "unknown type name 'TS_PUBLIC'"). Reescribimos el include con el prefijo
+  # tree_sitter/ para que el header se encuentre.
+  sed -i 's|#include "alloc.h"|#include "tree_sitter/alloc.h"|' "$TS_RUNTIME_ALLOC"
 fi
 
 echo "== [5/6] build (core/rapidfuzz: pip wheel | grammars: .so + shim) =="
