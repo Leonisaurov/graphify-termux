@@ -65,7 +65,7 @@ echo "== [1/6] deps del sistema =="
 if [ "$SKIP_DEPS" = "0" ]; then
     # python-numpy/python-networkx nativos: ABI correcto para bionic aarch64
     # (los wheels de PyPI de numpy no instalan en Termux). Nunca pip install numpy.
-    pkg install -y python-numpy python-networkx || {
+    yes | pkg install -y python-numpy python-networkx || {
         echo "WARN: pkg install fallo; continuando (verifica python-numpy/python-networkx a mano)" >&2
     }
 else
@@ -212,5 +212,27 @@ echo "Listo. Uso (dentro del proyecto):"
 echo "  $VENV/bin/graphify extract . --code-only --no-cluster   # indexar codigo (sin LLM)"
 echo "  $VENV/bin/graphify query \"como funciona X\"             # consultar el grafo"
 echo "  $VENV/bin/graphify install                             # registrar el skill en Hermes"
+
+# === Symlink en ~/.local/bin (accesible globalmente sin activar venv) ===
+LOCAL_BIN="$HOME/.local/bin"
+mkdir -p "$LOCAL_BIN"
+WRAPPER="$LOCAL_BIN/graphify"
+cat > "$WRAPPER" <<WRAPPER_EOF
+#!/data/data/com.termux/files/usr/bin/sh
+exec "$VENV/bin/python" -m graphify "\$@"
+WRAPPER_EOF
+chmod +x "$WRAPPER"
 echo
-echo "Tip: anade a tu shell:  export PATH=\"$VENV/bin:\$PATH\""
+echo "=== INSTALADO GLOBALMENTE ==="
+echo "  $WRAPPER -> $VENV"
+echo "  graphify ya esta en tu PATH:  command -v graphify"
+echo "  Si no aparece, anade a tu shell:"
+echo "    export PATH=\"$LOCAL_BIN:\$PATH\""
+echo "  (se anadio automaticamente a ~/.bashrc si no existia)"
+echo
+# Agregar a ~/.bashrc si no esta ya
+if ! grep -q "\.local/bin" "$HOME/.bashrc" 2>/dev/null; then
+    echo "export PATH=\"$LOCAL_BIN:\$PATH\"" >> "$HOME/.bashrc"
+    echo "  [PATH agregado a ~/.bashrc]"
+fi
+echo "  Prueba: graphify --help"
